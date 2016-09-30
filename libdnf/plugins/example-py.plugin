@@ -1,0 +1,8 @@
+[Plugin]
+Module = example
+Loader = python3
+Name = Python 3 example
+Description = Prints message during Dnf.Context.run() from Python 3
+Authors = Igor Gnatenko <i.gnatenko.brain@gmail.com>
+License = GPL-3.0+
+Copyright = Copyright © 2016 Igor Gnatenko
