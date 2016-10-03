@@ -1,4 +1,5 @@
 #include "dnf-context.h"
+#include "dnf-activatable.h"
 
 #include <libpeas/peas.h>
 
@@ -22,19 +23,28 @@ G_DEFINE_TYPE (DnfContext, dnf_context, G_TYPE_OBJECT)
 static void
 on_extension_added (G_GNUC_UNUSED PeasExtensionSet *set,
                     G_GNUC_UNUSED PeasPluginInfo   *info,
-                                  PeasExtension    *exten,
+                                  DnfActivatable   *activatable,
                     G_GNUC_UNUSED DnfContext       *ctx)
 {
-    peas_activatable_activate (PEAS_ACTIVATABLE (exten));
+    dnf_activatable_activate (activatable);
 }
 
 static void
 on_extension_removed (G_GNUC_UNUSED PeasExtensionSet *set,
                       G_GNUC_UNUSED PeasPluginInfo   *info,
-                                    PeasExtension    *exten,
+                                    DnfActivatable   *activatable,
                       G_GNUC_UNUSED DnfContext       *ctx)
 {
-    peas_activatable_deactivate (PEAS_ACTIVATABLE (exten));
+    dnf_activatable_deactivate (activatable);
+}
+
+static void
+on_run_executed (G_GNUC_UNUSED PeasExtensionSet *set,
+                 G_GNUC_UNUSED PeasPluginInfo   *info,
+                               DnfActivatable   *activatable,
+                               DnfContext       *ctx)
+{
+    dnf_activatable_run (activatable, ctx);
 }
 
 /**
@@ -82,8 +92,7 @@ dnf_context_init (DnfContext *ctx)
     g_free (plugin_path);
 
     ctx->extension_set = peas_extension_set_new (engine,
-                                                 PEAS_TYPE_ACTIVATABLE,
-                                                 "object", ctx,
+                                                 DNF_TYPE_ACTIVATABLE,
                                                  NULL);
 
     peas_extension_set_foreach (ctx->extension_set,
@@ -113,6 +122,9 @@ dnf_context_run (DnfContext *ctx)
     g_return_val_if_fail (DNF_IS_CONTEXT (ctx), FALSE);
 
     g_print ("Worked: ctx!\n");
+    peas_extension_set_foreach (ctx->extension_set,
+                                (PeasExtensionSetForeachFunc)on_run_executed,
+                                ctx);
 
     return TRUE;
 }

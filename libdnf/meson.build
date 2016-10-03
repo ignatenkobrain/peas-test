@@ -1,5 +1,6 @@
 srcs = [
-    'dnf-context.h', 'dnf-context.c'
+    'dnf-context.h', 'dnf-context.c',
+    'dnf-activatable.h', 'dnf-activatable.c',
 ]
 
 _libdnf = shared_library('dnf',
@@ -15,7 +16,7 @@ libdnf = declare_dependency(
 
 gnome.generate_gir(_libdnf,
                    sources : srcs,
-                   nsversion : '1.0',
+                   nsversion : '2.0',
                    namespace : 'Dnf',
                    symbol_prefix : 'dnf_',
                    identifier_prefix : 'Dnf',
