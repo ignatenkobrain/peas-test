@@ -14,4 +14,4 @@ class ExamplePlugin(GObject.Object, Dnf.Activatable):
         print("[plugin_deactivate]: Python")
 
     def do_run(self, ctx):
-        print("Worked: python ({!r})!".format(ctx))
+        print("Worked: Python!")

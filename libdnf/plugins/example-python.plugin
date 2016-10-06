@@ -1,5 +1,5 @@
 [Plugin]
-Module = example
+Module = example_python
 Loader = python3
 Name = Python 3 example
 Description = Prints message during Dnf.Context.run() from Python 3

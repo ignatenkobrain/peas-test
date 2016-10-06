@@ -1,7 +1,7 @@
-srcs = [
+srcs = files(
     'dnf-context.h', 'dnf-context.c',
     'dnf-activatable.h', 'dnf-activatable.c',
-]
+)
 
 _libdnf = shared_library('dnf',
                          sources : srcs,
