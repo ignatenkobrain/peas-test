@@ -80,16 +80,25 @@ static void
 dnf_context_init (DnfContext *ctx)
 {
     g_autoptr(PeasEngine) engine = peas_engine_get_default ();
-    gchar *plugin_path = NULL;
 
     /* Enable Python 3 plugins */
     peas_engine_enable_loader (engine, "python3");
 
-    plugin_path = g_build_filename (g_get_home_dir (),
-                                    "git", "upstream", "peas-test", "libdnf", "plugins",
-                                    NULL);
-    peas_engine_add_search_path (engine, plugin_path, NULL);
-    g_free (plugin_path);
+    if (g_getenv ("DNF_IN_TREE_PLUGINS") != NULL) {
+        peas_engine_prepend_search_path (engine,
+                                         BUILDDIR"/plugins",
+                                         SRCDIR"/plugins");
+    } else {
+        peas_engine_prepend_search_path (engine,
+                                         PACKAGE_LIBDIR"/plugins",
+                                         PACKAGE_DATADIR"/plugins");
+    }
+
+    g_autofree gchar *path = g_build_filename (g_get_user_data_dir (),
+                                               "dnf",
+                                               "plugins",
+                                               NULL);
+    peas_engine_prepend_search_path (engine, path, NULL);
 
     ctx->extension_set = peas_extension_set_new (engine,
                                                  DNF_TYPE_ACTIVATABLE,

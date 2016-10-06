@@ -1,6 +1,7 @@
 #pragma once
 
-#include <dnf-activatable.h>
+#include "dnf-activatable.h"
+
 #include <libpeas/peas.h>
 
 G_BEGIN_DECLS

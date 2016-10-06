@@ -1,3 +1,8 @@
+libdnf_builddir = meson.current_build_dir()
+
+plugin_path = '@0@/plugins'.format(pkg_libdir)
+plugin_data_path = '@0@/plugins'.format(pkg_datadir)
+
 srcs = files(
     'dnf-context.h', 'dnf-context.c',
     'dnf-activatable.h', 'dnf-activatable.c',
@@ -5,6 +10,12 @@ srcs = files(
 
 _libdnf = shared_library('dnf',
                          sources : srcs,
+                         c_args : [
+                             '-DBUILDDIR="@0@"'.format(meson.current_build_dir()),
+                             '-DSRCDIR="@0@"'.format(meson.current_source_dir()),
+                             '-DPACKAGE_LIBDIR="@0@"'.format(pkg_libdir),
+                             '-DPACKAGE_DATADIR="@0@"'.format(pkg_datadir),
+                         ],
                          dependencies : [gobject, libpeas],
                          install : true)
 
