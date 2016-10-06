@@ -1,7 +1,3 @@
-import gi
-
-gi.require_version("Dnf", "2.0")
-
 from gi.repository import GObject
 from gi.repository import Dnf
 

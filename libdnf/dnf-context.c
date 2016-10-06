@@ -85,6 +85,11 @@ dnf_context_init (DnfContext *ctx)
     peas_engine_enable_loader (engine, "python3");
 
     if (g_getenv ("DNF_IN_TREE_PLUGINS") != NULL) {
+        g_autoptr(GError) error = NULL;
+        g_irepository_require_private (g_irepository_get_default (),
+                                       BUILDDIR,
+                                       "Dnf", "2.0", 0, &error);
+        g_assert_no_error (error);
         peas_engine_prepend_search_path (engine,
                                          BUILDDIR"/plugins",
                                          SRCDIR"/plugins");

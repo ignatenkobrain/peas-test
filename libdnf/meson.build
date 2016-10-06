@@ -1,5 +1,3 @@
-libdnf_builddir = meson.current_build_dir()
-
 plugin_path = '@0@/plugins'.format(pkg_libdir)
 plugin_data_path = '@0@/plugins'.format(pkg_datadir)
 
