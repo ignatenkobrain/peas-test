@@ -6,8 +6,10 @@ srcs = files(
     'dnf-activatable.h', 'dnf-activatable.c',
 )
 
-_libdnf = shared_library('dnf',
-                         sources : srcs,
+plugin_srcs = []
+subdir('plugins/embedded')
+
+_libdnf = shared_library('dnf', srcs, plugin_srcs,
                          c_args : [
                              '-DBUILDDIR="@0@"'.format(meson.current_build_dir()),
                              '-DSRCDIR="@0@"'.format(meson.current_source_dir()),

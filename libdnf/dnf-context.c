@@ -99,6 +99,10 @@ dnf_context_init (DnfContext *ctx)
                                          PACKAGE_DATADIR"/plugins");
     }
 
+    peas_engine_prepend_search_path (engine,
+                                     "resource:///org/fedoraproject/dnf/plugins",
+                                     NULL);
+
     g_autofree gchar *path = g_build_filename (g_get_user_data_dir (),
                                                "dnf",
                                                "plugins",

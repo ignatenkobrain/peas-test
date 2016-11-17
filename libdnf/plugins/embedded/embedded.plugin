@@ -1,8 +1,9 @@
 [Plugin]
-Module = example_c
+Module = Embedded
 Loader = c
-Name = C example
+Name = Example of embedded C plugin
 Description = Prints message during dnf_context_run() from C
 Authors = Igor Gnatenko <i.gnatenko.brain@gmail.com>
 License = GPL-3.0+
 Copyright = Copyright © 2016 Igor Gnatenko
+Embedded = embedded_plugin_register_types
