@@ -5,14 +5,14 @@ struct _ExamplePlugin
     PeasExtensionBase parent_instance;
 };
 
-static void dnf_activatable_iface_init (DnfActivatableInterface *iface);
+static void example_plugin_iface_init (DnfActivatableInterface *iface);
 
 G_DEFINE_DYNAMIC_TYPE_EXTENDED (ExamplePlugin,
                                 example_plugin,
                                 PEAS_TYPE_EXTENSION_BASE,
                                 0,
                                 G_IMPLEMENT_INTERFACE (DNF_TYPE_ACTIVATABLE,
-                                                       dnf_activatable_iface_init))
+                                                       example_plugin_iface_init))
 
 static void
 example_plugin_init (ExamplePlugin *plugin)
@@ -61,7 +61,7 @@ example_plugin_class_init (ExamplePluginClass *klass)
 }
 
 static void
-dnf_activatable_iface_init (DnfActivatableInterface *iface)
+example_plugin_iface_init (DnfActivatableInterface *iface)
 {
     iface->activate = example_plugin_activate;
     iface->deactivate = example_plugin_deactivate;
